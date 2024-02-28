@@ -1,118 +1,76 @@
-import Image from "next/image";
-import { Inter } from "next/font/google";
+import { useState, useEffect } from "react";
+import Text from "./Text";
+const arr = [
+  {
+      title: "Post-negotiation",
+      content: "This could include the implementation of agreements, monitoring, and assessing outcomes."
+  },
+  {
+      title: "Preliminary Agreement",
+      content: "It denotes a provisional or initial agreement that outlines key terms and conditions but may not be final or binding. It sets the stage for further negotiations."
+  },
+  {
+      title: "Closing of Agreement",
+      content: "It refers to the finalization and formalization of agreements, where all parties involved reach a consensus and commit to the terms and conditions."
+  },
+  {
+      title: "Results Obtained",
+      content: "It refers to the outcomes or achievements that have been realized as a result of certain actions, projects, or agreements."
+  },
+  {
+      title: "Comparasion of results obtained and expected",
+      content: "It involves assessing the outcomes achieved in comparison to the anticipated or planned results. This helps evaluate the success or deviation from initial expectations."
+  },
+  
+  {
+      title: "Areas of opportunity",
+      content: "It refers to specific areas or aspects where improvement, growth, or development is possible. Identifying and addressing these areas can lead to better performance or outcomes."
+  }
+]
 
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+
+  const  [inputValue, setInputValue] =  useState('');
+  const  [question, setQuestion] =  useState(0);
+  const  [corr, setCorr] = useState()
+
+  const  handleChange = (event) => {
+		setInputValue(event.target.value);
+	};
+
+  const correct = ()=>{
+    if (arr[question].title = inputValue){
+      setCorr(true)
+    }else{
+      setCorr(false)
+    }
+  }
+
+  useEffect(()=>{
+    setQuestion(Math.floor(Math.random()*arr.length))
+  }, [])
+
+  
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/pages/index.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
+    <>
+    <div className="flex justify-center items-center h-screen">
+    <div className="relative max-w-xs">
+      <div className="mb-4 text-center rounded-md text-xl">
+        
+      {<Text corr={corr} arr={arr} question={question} />}
+      
       </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+          <input
+          value={inputValue}
+          onChange={handleChange}
+              type="text"
+              placeholder="Enter your answer"
+              className="w-full pl-5 pr-3 py-2 mt-30 text-gray-500 bg-white outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+          />
+          <button onClick={correct} className="w-full h-12 mt-4 px-6 text-indigo-100 transition-colors duration-150 bg-[#836177] rounded-lg focus:shadow-outline hover:bg-[#654b49]">Submit</button>
       </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </div>
+  </>
   );
 }
