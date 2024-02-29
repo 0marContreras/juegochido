@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import Text from "./Text";
-import Modal from "./Modal";
+import Text from "../modules/Text";
+import Modal from "../modules/Modal";
 const arr = [
   {
       title: "post-negotiation",
